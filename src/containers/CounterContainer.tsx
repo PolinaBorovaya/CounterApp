@@ -1,40 +1,22 @@
 import React, { Component } from 'react';
 import Counter, { CounterProps } from '../views/Counter';
+import ParentCounter from '../views/ParentCounter';
 
-interface CounterContainerProps {}
-
-interface CounterContainerState {
-    counterValue: number;
+interface CounterContainerProps {
+    value: number;
+    index: number;
+    onChange: (index: number, newValue: number) => void;
 }
 
-class CounterContainer extends Component<CounterContainerProps, CounterContainerState>{
-    constructor(props: CounterContainerProps) {
-        super(props);
-        this.state = { counterValue: 0 };
-    }
+const CounterContainer = ({index, value, onChange} : CounterContainerProps) => {
+    return (
+        <Counter 
+            counterValue={value} 
+            onIncrement={() => onChange(index, value + 1)} 
+            onDecrement={() => onChange(index, value - 1)} 
+            onReset={() => onChange(index, 0)}
+        />
+    );
+};
 
-    handleIncrement = () => {
-        this.setState({ counterValue: this.state.counterValue + 1 });
-    }
-
-    handleDecrement = () => {
-        this.setState({ counterValue: this.state.counterValue - 1 });
-    }
-
-    handleReset = () => {
-        this.setState({ counterValue: 0 });
-    }
-
-    render() {
-        const props: CounterProps = {
-            counterValue: this.state.counterValue,
-            onIncrement: this.handleIncrement,
-            onDecrement: this.handleDecrement,
-            onReset: this.handleReset,
-        };
-
-        return <Counter {...props} />
-    }
-}
-
-export default CounterContainer;
+export default React.memo(CounterContainer);

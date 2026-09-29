@@ -12,7 +12,7 @@ export interface CounterProps {
 
 const Counter = ({counterValue, onIncrement, onDecrement, onReset} : CounterProps) => {
   return (
-    <div style={styles.rootStyles}>
+    <div style={styles.counterStyles}>
       <h1 style={styles.titleStyles}>Счётчик</h1>
       <div style={styles.valueStyles}>{counterValue}</div>
       <div style={styles.buttonsStyles}>
