@@ -7,12 +7,14 @@ const TabsMenu = () => {
 
     const currentTab = location.pathname === '/about' ? 0 
     : location.pathname === '/counters' ? 1
+    : location.pathname === '/login' ? 2
     : false;
 
     return (
         <Tabs value={currentTab} centered>
             <Tab label="О нас" component={Link} to="/about" />
             <Tab label="Счётчики" component={Link} to="/counters" />
+            <Tab label="Войти" component={Link} to="/login" />
         </Tabs>
     );
 };
