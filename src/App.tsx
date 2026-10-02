@@ -1,36 +1,30 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import TabsMenu from './components/TabsMenu';
 import About from './pages/About';
 import Counters from './pages/Counters';
 import NotFound from './pages/NotFound';
 
-const AppContent = () => {
-  const location = useLocation();
+const App = () => {
+    const location = useLocation();
 
-  const showTabs = location.pathname === '/'
-    || location.pathname === '/about'
-    || location.pathname === '/counters';
+    const showTabs = location.pathname === '/'
+        || location.pathname === '/about'
+        || location.pathname === '/counters';
 
     return (
-    <>
-        {showTabs && <TabsMenu />}
+        <>
+            {showTabs && <TabsMenu />}
 
-        <Routes>
-            <Route path="/" element={<></>} />
-            <Route path="/about" element={<About />} />
-            <Route path="/counters" element={<Counters />} />
-            <Route path="/404" element={<NotFound />} />
-            <Route path="*" element={<Navigate to="/404" replace />} />
-        </Routes>
-    </>
-);
+            <Routes>
+                <Route path="/" element={<></>} />
+                <Route path="/about" element={<About />} />
+                <Route path="/counters" element={<Counters />} />
+                <Route path="/404" element={<NotFound />} />
+                <Route path="*" element={<Navigate to="/404" replace />} />
+            </Routes>
+        </>
+    );
 };
 
-export default function App() {
-  return (
-    <BrowserRouter>
-      <AppContent />
-    </BrowserRouter>
-  );
-}
+export default App;
