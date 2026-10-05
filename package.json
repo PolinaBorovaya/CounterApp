@@ -38,10 +38,12 @@
     "@progress/kendo-react-buttons": "^16.1.0",
     "@progress/kendo-svg-icons": "^5.4.0",
     "@progress/kendo-theme-default": "^14.5.0",
+    "@types/react-redux": "^7.1.34",
     "prop-types": "^15.8.1",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "react-router-dom": "^7.18.4",
+    "redux": "^5.0.1",
     "source-map-loader": "^5.0.0"
   }
 }
