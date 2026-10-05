@@ -6,9 +6,6 @@ export interface LoginFormErrors {
     password?: string,
 }
 
-export interface LoginHandlers {
-}
-
 const LoginContainer = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
