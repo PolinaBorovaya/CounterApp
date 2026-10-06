@@ -1,20 +1,19 @@
 import React from 'react';
 import { Tabs, Tab } from '@mui/material';
 import { Link, useLocation } from 'react-router-dom';
+import { routes } from '../../config/routes';
 
 const TabsMenu = () => {
     const location = useLocation();
+    const menuRoutes = routes.filter((r) => r.showInMenu);
 
-    const currentTab = location.pathname === '/about' ? 0 
-    : location.pathname === '/counters' ? 1
-    : location.pathname === '/login' ? 2
-    : false;
+    const currentTab = menuRoutes.findIndex((r) => r.path === location.pathname);
 
     return (
-        <Tabs value={currentTab} centered>
-            <Tab label="О нас" component={Link} to="/about" />
-            <Tab label="Счётчики" component={Link} to="/counters" />
-            <Tab label="Войти" component={Link} to="/login" />
+        <Tabs value={currentTab === -1 ? false : currentTab} centered>
+            {menuRoutes.map((r) => (
+                <Tab key={r.path} label={r.label} component={Link} to={r.path} />
+            ))}
         </Tabs>
     );
 };
