@@ -22,13 +22,13 @@ const Login = ({email, password, errors, onEmailChange, onPasswordChange, onSubm
 
             <div style={styles.fieldStyles}>
               <label>Email</label>
-              <input type='email' value={email} onChange={onEmailChange} style={styles.inputStyles}></input>
+              <input name='email' type='email' value={email} onChange={onEmailChange} style={styles.inputStyles}></input>
               {errors.email && (<span style={styles.errorStyles}>{errors.email}</span>)}   
             </div>
             
             <div style={styles.fieldStyles}>
               <label>Password</label>
-              <input type='password' value={password} onChange={onPasswordChange}></input>
+              <input name='password' type='password' value={password} onChange={onPasswordChange}></input>
               {errors.password && (<span style={styles.errorStyles}>{errors.password}</span>)}
             </div>
             

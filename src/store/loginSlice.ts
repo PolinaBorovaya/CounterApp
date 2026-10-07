@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { LoginFormErrors } from '../utils/validation';
+import { act } from 'react';
 
 interface LoginState {
     email: string, 
@@ -34,9 +35,14 @@ const loginSlice = createSlice({
             state.password = '';
             state.errors = {};
         },
+
+        saveForm: (state, action) => {
+            state.email = action.payload.email;
+            state.password = action.payload.password;
+        },
     },
 });
 
-export const { setEmail, setPassword, setErrors, resetForm } = loginSlice.actions;
+export const { setEmail, setPassword, setErrors, resetForm, saveForm } = loginSlice.actions;
 
 export default loginSlice.reducer;
