@@ -7,6 +7,7 @@ import LoginRedux from '../pages/LoginRedux';
 import LoginReduxSuccess from '../pages/LoginRedux/Success';
 import LoginFormik from '../pages/LoginFormik';
 import LoginFormikSuccess from '../pages/LoginFormik/Success';
+import GetActivity from '../pages/GetActivity';
 
 export interface RouteConfig {
     path: string;
@@ -23,5 +24,6 @@ export const routes: RouteConfig[] = [
     { path: '/login-redux/success', label: 'Успех', element: <LoginReduxSuccess />, showInMenu: false },
     { path: '/login-formik', label: 'Войти с Formik', element: <LoginFormik />, showInMenu: true },
     { path: '/login-formik/success', label: 'Успех', element: <LoginFormikSuccess />, showInMenu: false },
+    { path: '/get-activity-saga', label: 'Получить новую активность', element: <GetActivity />, showInMenu: true },
     { path: '/404', label: '404', element: <NotFound />, showInMenu: false },
 ];

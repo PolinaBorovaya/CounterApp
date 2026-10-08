@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { LoginFormErrors } from '../utils/validation';
-import { act } from 'react';
 
 interface LoginState {
     email: string, 
