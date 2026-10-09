@@ -1,0 +1,43 @@
+name: Deploy all tasks
+
+on:
+  push:
+    branches:
+      - "task1"
+      - "task2"
+      - "task3"
+      - "task4"
+      - "task5"
+      - "task6"
+      - "task7"
+      - "task8"
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - run: npm install
+
+      - run: npm run build
+        env:
+          NODE_ENV: production
+          PUBLIC_PATH: /${{ github.event.repository.name }}/${{ github.ref_name }}/
+
+      - run: cp dist/index.html dist/404.html
+
+      - uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist
+          publish_branch: gh-pages
+          destination_dir: ${{ github.ref_name }}
+          keep_files: true
