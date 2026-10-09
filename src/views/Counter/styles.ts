@@ -1,4 +1,6 @@
-export const rootStyles = {
+import { CSSProperties } from 'react';
+
+export const rootStyles: CSSProperties = {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',

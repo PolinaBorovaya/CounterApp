@@ -1,8 +1,14 @@
 import React, { Component } from 'react';
-import Counter from '../views/Counter';
+import Counter, { CounterProps } from '../views/Counter';
 
-class CounterContainer extends Component{
-    constructor(props) {
+interface CounterContainerProps {}
+
+interface CounterContainerState {
+    counterValue: number;
+}
+
+class CounterContainer extends Component<CounterContainerProps, CounterContainerState>{
+    constructor(props: CounterContainerProps) {
         super(props);
         this.state = { counterValue: 0 };
     }
@@ -20,7 +26,7 @@ class CounterContainer extends Component{
     }
 
     render() {
-        const props = {
+        const props: CounterProps = {
             counterValue: this.state.counterValue,
             onIncrement: this.handleIncrement,
             onDecrement: this.handleDecrement,
