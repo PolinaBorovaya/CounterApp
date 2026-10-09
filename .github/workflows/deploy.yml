@@ -2,15 +2,9 @@ name: Deploy all tasks
 
 on:
   push:
-    branches:
-      - "task1"
-      - "task2"
-      - "task3"
-      - "task4"
-      - "task5"
-      - "task6"
-      - "task7"
-      - "task8"
+    branches-ignore:
+      - main
+      - gh-pages
   workflow_dispatch:
 
 jobs:
@@ -32,7 +26,7 @@ jobs:
           NODE_ENV: production
           PUBLIC_PATH: /${{ github.event.repository.name }}/${{ github.ref_name }}/
 
-      - run: cp dist/index.html dist/404.html
+      - run: ls -la dist
 
       - uses: peaceiris/actions-gh-pages@v4
         with:
