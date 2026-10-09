@@ -1,13 +1,18 @@
 import React from "react";
-import PropTypes from 'prop-types';
 import { Button } from '@progress/kendo-react-buttons';
 import { plusIcon, minusIcon, arrowRotateCwIcon } from '@progress/kendo-svg-icons';
 import * as styles from './styles';
 
+export interface CounterProps {
+    counterValue: number;
+    onIncrement: () => void;
+    onDecrement: () => void;
+    onReset: () => void;
+}
 
-const Counter = ({counterValue, onIncrement, onDecrement, onReset}) => {
+const Counter = ({counterValue, onIncrement, onDecrement, onReset} : CounterProps) => {
   return (
-    <div style={styles.rootStyles}>
+    <div style={styles.counterStyles}>
       <h1 style={styles.titleStyles}>Счётчик</h1>
       <div style={styles.valueStyles}>{counterValue}</div>
       <div style={styles.buttonsStyles}>
@@ -24,12 +29,5 @@ const Counter = ({counterValue, onIncrement, onDecrement, onReset}) => {
     </div>
   );
 };
-
-Counter.propTypes = {
-    counterValue: PropTypes.number.isRequired,
-    onIncrement: PropTypes.func.isRequired,
-    onDecrement: PropTypes.func.isRequired,
-    onReset: PropTypes.func.isRequired,
-}
 
 export default Counter;

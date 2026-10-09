@@ -13,16 +13,20 @@ const stylesHandler = isProduction ? MiniCssExtractPlugin.loader : 'style-loader
 
 /** @type {import("webpack").Configuration} */
 const config = {
-    entry: './src/index.js',
+    entry: './src/index.tsx',
     output: {
         path: path.resolve(__dirname, 'dist'),
+        filename: isProduction ? '[name].[contenthash].js' : '[name].js',
+        clean: true,
+        publicPath: '/',
     },
     resolve: {
-        extensions: ['.js', '.jsx', '.ts', '.tsx'],
+        extensions: ['.tsx', '.ts','.jsx', '.js'],
     },
     devServer: {
         open: true,
         host: 'localhost',
+        historyApiFallback: true,
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -35,8 +39,14 @@ const config = {
     module: {
         rules: [
             {
+                test: /\.(ts|tsx)$/i,
+                loader: 'ts-loader',
+                exclude: /node_modules/,
+            },
+            {
                 test: /\.(js|jsx)$/i,
                 loader: 'babel-loader',
+                exclude: /node_modules/,
             },
             {
                 test: /\.css$/i,
@@ -62,8 +72,7 @@ module.exports = () => {
     if (isProduction) {
         config.mode = 'production';
         
-        config.plugins.push(new MiniCssExtractPlugin());
-        
+        config.plugins.push(new MiniCssExtractPlugin());      
         
     } else {
         config.mode = 'development';
