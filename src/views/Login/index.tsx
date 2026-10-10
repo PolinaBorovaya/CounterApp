@@ -1,14 +1,12 @@
 import React from 'react';
 import * as styles from './styles';
 import { Button } from '@progress/kendo-react-buttons';
+import { LoginFormErrors } from '../../utils/validation';
 
 export interface LoginProps{
     email: string,
     password: string,
-    errors: {
-      email?: string,
-      password?: string,
-    }
+    errors: LoginFormErrors,
     onEmailChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onPasswordChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onSubmit: (e: React.SubmitEvent<HTMLFormElement>) => void;

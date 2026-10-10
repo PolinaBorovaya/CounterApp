@@ -3,7 +3,7 @@ export interface LoginFormErrors{
     password?: string,
 }
 
-export const validateEmail = (email: string): string | undefined => {
+export const getEmailError = (email: string): string | undefined => {
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
         return 'Введите корректный email';
     }
@@ -11,7 +11,7 @@ export const validateEmail = (email: string): string | undefined => {
     return undefined;
 };
 
-export const validatePassword = (password: string): string | undefined => {
+export const getPasswordError = (password: string): string | undefined => {
     if (password.length < 6) {
         return 'Пароль должен содержать минимум 6 символов';
     }
@@ -19,15 +19,15 @@ export const validatePassword = (password: string): string | undefined => {
     return undefined;
 };
 
-export const validateLoginForm = (email: string, password: string): LoginFormErrors => {
+export const getLoginFormError = (email: string, password: string): LoginFormErrors => {
     const newErrors: LoginFormErrors = {};
 
-    const emailError = validateEmail(email);
+    const emailError = getEmailError(email);
     if (emailError !== undefined) {
         newErrors.email = emailError;
     }
 
-    const passwordError = validatePassword(password);
+    const passwordError = getPasswordError(password);
     if(passwordError !== undefined) {
         newErrors.password = passwordError;
     }

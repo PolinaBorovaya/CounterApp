@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Login from '../views/Login';
 import { useAppDispatch, useAppSelector } from '../store';
 import { setEmail, setPassword, setErrors } from '../store/loginSlice';
-import { validateLoginForm } from '../utils/validation';
+import { getLoginFormError } from '../utils/validation';
 
 const LoginReduxContainer = () => {
     const dispatch = useAppDispatch();
@@ -24,7 +24,7 @@ const LoginReduxContainer = () => {
     const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const validationErrors = validateLoginForm(email, password);
+        const validationErrors = getLoginFormError(email, password);
         dispatch(setErrors(validationErrors));
 
         if (Object.keys(validationErrors).length > 0) return;

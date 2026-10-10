@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Login from '../views/Login';
-import { validateLoginForm, LoginFormErrors } from '../utils/validation';
+import { getLoginFormError, LoginFormErrors } from '../utils/validation';
 
 const LoginContainer = () => {
     const [email, setEmail] = useState('');
@@ -18,7 +18,7 @@ const LoginContainer = () => {
     const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const validationErrors = validateLoginForm(email, password);
+        const validationErrors = getLoginFormError(email, password);
         setErrors(validationErrors);
 
         if(Object.keys(validationErrors).length > 0) return;
