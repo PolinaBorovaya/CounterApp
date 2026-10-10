@@ -1,15 +1,15 @@
 // Generated using webpack-cli https://github.com/webpack/webpack-cli
 
 const path = require('path');
+const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 const isProduction = process.env.NODE_ENV === 'production';
 
+const publicPath = process.env.PUBLIC_PATH || '/';
 
 const stylesHandler = isProduction ? MiniCssExtractPlugin.loader : 'style-loader';
-
-
 
 /** @type {import("webpack").Configuration} */
 const config = {
@@ -18,10 +18,10 @@ const config = {
         path: path.resolve(__dirname, 'dist'),
         filename: isProduction ? '[name].[contenthash].js' : '[name].js',
         clean: true,
-        publicPath: '/',
+        publicPath: publicPath,
     },
     resolve: {
-        extensions: ['.tsx', '.ts','.jsx', '.js'],
+        extensions: ['.tsx', '.ts', '.jsx', '.js'],
     },
     devServer: {
         open: true,
@@ -33,8 +33,9 @@ const config = {
             template: './public/index.html',
         }),
 
-        // Add your plugins here
-        // Learn more about plugins from https://webpack.js.org/configuration/plugins/
+        new webpack.DefinePlugin({
+            'process.env.PUBLIC_PATH': JSON.stringify(publicPath),
+        }),
     ],
     module: {
         rules: [
@@ -50,20 +51,16 @@ const config = {
             },
             {
                 test: /\.css$/i,
-                use: [stylesHandler,'css-loader'],
+                use: [stylesHandler, 'css-loader'],
             },
             {
                 test: /\.(eot|svg|ttf|woff|woff2|png|jpg|gif)$/i,
                 type: 'asset',
             },
-            
             {
                 test: /\.html$/i,
                 use: ['html-loader'],
             },
-
-            // Add your rules for custom modules here
-            // Learn more about loaders from https://webpack.js.org/loaders/
         ],
     },
 };
@@ -71,9 +68,7 @@ const config = {
 module.exports = () => {
     if (isProduction) {
         config.mode = 'production';
-        
-        config.plugins.push(new MiniCssExtractPlugin());      
-        
+        config.plugins.push(new MiniCssExtractPlugin());
     } else {
         config.mode = 'development';
     }
