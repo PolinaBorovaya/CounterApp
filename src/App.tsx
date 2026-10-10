@@ -15,7 +15,6 @@ const App = () => {
     return (
         <>
             {showTabs && <TabsMenu />}
-            <HashRouter>
               <Routes>
                   <Route path="/" element={<></>} />
                   <Route path="/about" element={<About />} />
@@ -23,7 +22,6 @@ const App = () => {
                   <Route path="/404" element={<NotFound />} />
                   <Route path="*" element={<Navigate to="/404" replace />} />
               </Routes>
-            </HashRouter>
         </>
     );
 };
