@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Counter, { CounterProps } from '../views/Counter';
 import ParentCounter from '../views/ParentCounter';
+import { useCallback } from 'react';
 
 interface CounterContainerProps {
     value: number;
@@ -9,12 +10,24 @@ interface CounterContainerProps {
 }
 
 const CounterContainer = ({index, value, onChange} : CounterContainerProps) => {
+    const handleIncrement = useCallback(() => {
+        onChange(index, value + 1);
+    }, [onChange, index, value]);
+
+    const handleDecrement = useCallback(() => {
+        onChange(index, value - 1);
+    }, [onChange, index, value]);
+
+    const handleReset = useCallback(() => {
+        onChange(index, 0);
+    }, [onChange, index]);
+
     return (
         <Counter 
             counterValue={value} 
-            onIncrement={() => onChange(index, value + 1)} 
-            onDecrement={() => onChange(index, value - 1)} 
-            onReset={() => onChange(index, 0)}
+            onIncrement={handleIncrement} 
+            onDecrement={handleDecrement} 
+            onReset={handleReset}
         />
     );
 };
