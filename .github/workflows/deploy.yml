@@ -1,0 +1,34 @@
+on:
+  push:
+    branches:
+      - 'task*'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - run: npm ci
+
+      - name: Build
+        run: npm run build
+        env:
+          NODE_ENV: production
+          PUBLIC_PATH: /${{ github.event.repository.name }}/${{ github.ref_name }}/
+
+      - uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          branch: gh-pages
+          folder: dist
+          target-folder: ${{ github.ref_name }}
+          clean: false
