@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
 import Login from '../views/Login';
 
+const DEFAULT_EMAIL = '';
+const DEFAULT_PASSWORD = '';
+const DEFAULT_ERRORS: LoginFormErrors = {};
+
 export interface LoginFormErrors {
     email?: string,
     password?: string,
 }
 
 const LoginContainer = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [errors, setErrors] = useState<LoginFormErrors>({}); 
+    const [email, setEmail] = useState(DEFAULT_EMAIL);
+    const [password, setPassword] = useState(DEFAULT_PASSWORD);
+    const [errors, setErrors] = useState<LoginFormErrors>(DEFAULT_ERRORS); 
 
     const validate = () => {
         const newErrors: LoginFormErrors = {};
@@ -42,9 +46,9 @@ const LoginContainer = () => {
         if(Object.keys(validationErrors).length > 0) return;
 
         console.log('Отправка формы:', { email, password });
-        setEmail('');
-        setPassword('');
-        setErrors({});
+        setEmail(DEFAULT_EMAIL);
+        setPassword(DEFAULT_PASSWORD);
+        setErrors(DEFAULT_ERRORS);
     };
 
     return (<Login 

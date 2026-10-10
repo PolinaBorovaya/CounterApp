@@ -1,28 +1,22 @@
 import React from 'react';
 import { Routes, Route, Navigate, useLocation, HashRouter } from 'react-router-dom';
 import TabsMenu from './components/TabsMenu';
-import About from './pages/About';
-import Counters from './pages/Counters';
-import NotFound from './pages/NotFound';
-import Login from './pages/Login';
+import { routes } from './config/routes';
 
 const App = () => {
     const location = useLocation();
 
-    const showTabs = location.pathname === '/'
-        || location.pathname === '/about'
-        || location.pathname === '/counters'
-        || location.pathname === '/login';
+    const menuPaths = routes.filter((r) => r.showInMenu).map((r) => r.path);
+    const showTabs = location.pathname === '/' || menuPaths.includes(location.pathname);
 
     return (
         <>
             {showTabs && <TabsMenu />}
-              <Routes>
+               <Routes>
                   <Route path="/" element={<></>} />
-                  <Route path="/about" element={<About />} />
-                  <Route path="/counters" element={<Counters />} />
-                  <Route path="/login" element={<Login />} />
-                  <Route path="/404" element={<NotFound />} />
+                  {routes.map((r) => (
+                      <Route key={r.path} path={r.path} element={r.element} />
+                  ))}
                   <Route path="*" element={<Navigate to="/404" replace />} />
               </Routes>
         </>
