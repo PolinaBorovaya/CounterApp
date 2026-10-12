@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { observer } from 'mobx-react-lite';
 import { useNavigate } from 'react-router-dom';
 import Login from '../views/Login';
@@ -7,20 +7,22 @@ import { loginStore } from '../store/LoginStore';
 const LoginMstContainer = observer(() => {
     const navigate = useNavigate();
 
-    const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        loginStore.setEmail(e.target.value);
-    };
+    const handleEmailChange = useCallback(({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
+        loginStore.setEmail(value);
+    },[]);
 
-    const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        loginStore.setPassword(e.target.value);
-    };
+    const handlePasswordChange = useCallback(({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
+        loginStore.setPassword(value);
+    }, []);
 
-    const handleSubmit = (e: React.SubmitEvent<HTMLFormElement>) => {
+    const handleSubmit = useCallback((e: React.SubmitEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const isValid = loginStore.validate();
+        const isValid = loginStore.validateLoginForm();
 
-        if (!isValid) return;
+        if (!isValid){
+            return;
+        }
 
         console.log('Отправка формы (MST):', {
             email: loginStore.email,
@@ -28,7 +30,7 @@ const LoginMstContainer = observer(() => {
         });
 
         navigate('/login-mst/success');
-    };
+    }, []);
 
     return (
         <Login

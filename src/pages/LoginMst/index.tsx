@@ -4,7 +4,7 @@ import { loginStore } from '../../store/LoginStore';
 
 const LoginMst = () => {
     useEffect(() => {
-        loginStore.reset();
+        loginStore.resetLoginForm();
     }, []);
 
     return <LoginMstContainer />;

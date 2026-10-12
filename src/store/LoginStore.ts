@@ -1,14 +1,16 @@
 import { types } from 'mobx-state-tree';
 import { validateLoginForm } from '../utils/validation';
 
+const DEFAULT_EMAIL = '';
+const DEFAULT_PASSWORD = '';
+const DEFAULT_ERRORS: { email?: string; password?: string } = {};
+
 export const LoginStore = types
     .model('LoginStore', {
-        email: types.optional(types.string, ''),
-        password: types.optional(types.string, ''),
+        email: types.optional(types.string, DEFAULT_EMAIL),
+        password: types.optional(types.string, DEFAULT_PASSWORD),
         errors: types.optional(
-            types.frozen<{ email?: string; password?: string }>(),
-            {}
-        ),
+            types.frozen<{ email?: string; password?: string }>(), DEFAULT_ERRORS),
     })
     .actions((self) => ({
         setEmail(value: string) {
@@ -17,15 +19,15 @@ export const LoginStore = types
         setPassword(value: string) {
             self.password = value;
         },
-        validate(): boolean {
+        validateLoginForm(): boolean {
             const validationErrors = validateLoginForm(self.email, self.password);
             self.errors = validationErrors;
             return Object.keys(validationErrors).length === 0;
         },
-        reset() {
-            self.email = '';
-            self.password = '';
-            self.errors = {};
+        resetLoginForm() {
+            self.email = DEFAULT_EMAIL;
+            self.password = DEFAULT_PASSWORD;
+            self.errors = DEFAULT_ERRORS;
         },
     }));
 
