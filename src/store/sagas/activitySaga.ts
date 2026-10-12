@@ -1,9 +1,9 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
-import { fetchTasksSuccess, fetchTasksFailure, fetchTasksRequest, Post } from '../activitySlice';
+import { fetchTasksSuccess, fetchTasksFailure, fetchTasksRequest, ActivityPost } from '../activitySlice';
 
-const fetchPostsApi = async (): Promise<Post[]> => {
-    const response = await axios.get<Post[]>('https://jsonplaceholder.typicode.com/posts');
+const fetchPostsApi = async (): Promise<ActivityPost[]> => {
+    const response = await axios.get<ActivityPost[]>('https://jsonplaceholder.typicode.com/posts');
     return response.data;
 };
 
