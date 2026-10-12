@@ -1,20 +1,24 @@
 import Activity from '../views/Activity';
 import { useAppDispatch, useAppSelector } from "../store";
 import { fetchTasksRequest } from "../store/activitySlice";
+import { useCallback } from 'react';
 
 const ActivityContainer = () => {
     const dispatch = useAppDispatch();
-    const posts = useAppSelector((state) => state.activity.posts);
-    const loading = useAppSelector((state) => state.activity.loading);
-    const error = useAppSelector((state) => state.activity.error);
 
-    const handleFetch = () => {
+    const { posts, loading, error } = useAppSelector((state) => ({
+        posts: state.activity.posts,
+        loading: state.activity.loading,
+        error: state.activity.error,
+    }));
+
+    const handleFetch = useCallback(() => {
         dispatch(fetchTasksRequest());
-    };
+    }, [dispatch]);
 
     return <Activity
         posts={posts}
-        loading={loading}
+        isDataLoading={loading}
         error={error}
         onFetch={handleFetch}
     />

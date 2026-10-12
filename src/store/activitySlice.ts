@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export interface Post{
+export interface ActivityPost{
     userId: number,
     id: number,
     title: string,
@@ -8,7 +8,7 @@ export interface Post{
 }
 
 interface ActivityState{
-    posts: Post[],
+    posts: ActivityPost[],
     loading: boolean,
     error: string | null,
 }

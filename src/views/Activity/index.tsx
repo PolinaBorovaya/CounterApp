@@ -1,16 +1,16 @@
 import React from 'react';
 import { Button } from '@progress/kendo-react-buttons';
-import { Post } from '../../store/activitySlice';
+import { ActivityPost } from '../../store/activitySlice';
 import * as styles from './styles';
 
 export interface ActivityProps {
-    posts: Post[];
-    loading: boolean;
+    posts: ActivityPost[];
+    isDataLoading: boolean;
     error: string | null;
     onFetch: () => void;
 }
 
-const Activity = ({ posts, loading, error, onFetch }: ActivityProps) => {
+const Activity = ({ posts, isDataLoading: loading, error, onFetch }: ActivityProps) => {
     return (
         <div style={styles.rootStyles}>
             <h1 style={styles.titleStyles}>Активность</h1>
